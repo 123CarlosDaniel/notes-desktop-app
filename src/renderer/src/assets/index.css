@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family:
+    Roboto,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Open Sans',
+    sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.addNoteContainer {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: min-content 20rem;
+}
+
+@media screen and (max-width : 640px) {
+  .form-container {
+    grid-template-columns: 1fr;
+  }
+}
