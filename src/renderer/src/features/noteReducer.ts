@@ -6,13 +6,7 @@ export interface Note {
     description: string
 }
 
-const notes: Note[] = [
-    {
-        id: 1,
-        title: "hola mundo",
-        description: "este es un ejemplo"
-    }
-]
+const notes: Note[] = []
 
 const noteSlice = createSlice({
     name: "notes",
@@ -20,9 +14,13 @@ const noteSlice = createSlice({
     reducers: {
        addNote: (state, action: PayloadAction<Note>) => {
         state.push(action.payload)
-       } 
+       },
+       updateNote: (state, action: PayloadAction<Note>) => {
+        const index = state.findIndex(note => note.id === action.payload.id)
+        state[index] = action.payload
+       }
     }
 })
 
-export const {addNote} = noteSlice.actions
+export const {addNote, updateNote} = noteSlice.actions
 export default noteSlice.reducer

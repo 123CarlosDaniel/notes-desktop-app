@@ -10,5 +10,5 @@ export function useFormData(initialValue: Note) {
             [name]: value
         })
     }
-    return {data, handleChange}
+    return {data, setData, handleChange}
 }

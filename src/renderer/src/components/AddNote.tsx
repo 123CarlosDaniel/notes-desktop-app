@@ -1,4 +1,6 @@
+import { increment } from '@renderer/features/idReducer'
 import { addNote } from '@renderer/features/noteReducer'
+import { useAppSelector } from '@renderer/hooks/useAppSelector'
 import { useFormData } from '@renderer/hooks/useFormData'
 import React, { MouseEventHandler } from 'react'
 import { useDispatch } from 'react-redux'
@@ -6,13 +8,15 @@ import { useNavigate } from 'react-router-dom'
 
 function AddNote(): React.JSX.Element {
   const {data, handleChange} = useFormData({title: "", description: ""})
+  const idGen = useAppSelector(state => state.idGen)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleFormSubmit: MouseEventHandler<HTMLButtonElement>= (e) => {
     e.preventDefault()
-    dispatch(addNote({...data}))
-    navigate("/")
+    dispatch(addNote({...data, id: idGen.id}))
+    dispatch(increment())
+    navigate(-1)
   }
   return (
     <>

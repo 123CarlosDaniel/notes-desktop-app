@@ -7,25 +7,25 @@ function App(): JSX.Element {
   const currentPath = location.pathname
 
   const handleClick = (): void => {
-    if (currentPath === "/") {
-      navigate('/add-note')
+    if (currentPath === "/add-note") {
+      navigate(-1)
     } else {
-      navigate('/')
+      navigate('/add-note')
     }
   }
   return (
     <>
       <div className="flex">
-        <div className="w-[12rem] h-screen shrink-0 p-2 bg-slate-800">
+        <div className="w-[12rem] h-screen shrink-0 bg-slate-800">
           <SideBar></SideBar>
         </div>
-        <div className="p-2 h-screen w-full">
+        <div className="relative w-full h-screen">
           <Outlet></Outlet>
         </div>
       </div>
       <div className="addNoteContainer">
-        <button className="addNoteBtn px-2 py-1 rounded-full border-green-700 border-2 hover:bg-green-700 hover:border-transparent" onClick={handleClick}>
-          {currentPath === "/" ? "Add Note": "Home"}
+        <button className="px-2 py-1 border-2 border-green-700 rounded-full addNoteBtn hover:bg-green-700 hover:border-transparent" onClick={handleClick}>
+          {currentPath === "/add-note" ? "Home": "Add Note"}
         </button>
       </div>
     </>

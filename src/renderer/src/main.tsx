@@ -7,19 +7,35 @@ import Description from './components/Description';
 import AddNote from './components/AddNote';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import EmptyList from './components/EmptyList';
+import ErrorPage from './components/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: '/',
-        element: <Description/>
+        element: <EmptyList/>
       },
       {
         path: '/:id',
-        element: <Description/>
+        element: <Description/>,
+        loader: ({ params }) => {
+          const state = store.getState()
+          const notes = state.notes
+          const id = params.id!
+          const note = notes.find((note) => note.id === parseInt(id))
+          if (note === undefined) {
+            throw new Response("Not found", {
+              status: 404,
+              statusText: "Not found"
+            })
+          }
+          return note
+        }
       },
       {
         path: '/add-note',
@@ -32,7 +48,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <div className='h-screen text-slate-200 relative'>
+    <div className='relative h-screen text-slate-200'>
       <Provider store={store}>
         <RouterProvider router={router}/>
       </Provider>
