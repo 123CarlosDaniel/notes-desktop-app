@@ -38,7 +38,7 @@ function Description(): React.JSX.Element {
       
         value={data.title}
       />
-      <textarea className='outline-none bg-inherit' name='description' value={data.description} onChange={handleChange}></textarea>
+      <textarea className='overflow-y-hidden outline-none resize-none bg-inherit' name='description' value={data.description} onChange={handleChange}></textarea>
     </div>
     <div className='absolute flex bottom-8 left-4 gap-x-4'>
       <button onClick={handleUpdateBtn} className='px-2 py-1 bg-blue-400 rounded-full outline-transparent outline outline-2 hover:bg-inherit hover:outline-blue-400'>Update</button>

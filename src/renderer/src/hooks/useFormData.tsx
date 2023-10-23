@@ -9,6 +9,8 @@ export function useFormData(initialValue: Note) {
             ...data,
             [name]: value
         })
+        e.target.style.height = 'auto'
+        e.target.style.height = e.target.scrollHeight + 'px'
     }
     return {data, setData, handleChange}
 }
