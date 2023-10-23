@@ -1,12 +1,13 @@
-import { Note, updateNote } from '@renderer/features/noteReducer'
+import { Note, deleteNote, updateNote } from '@renderer/features/noteReducer'
 import { useFormData } from '@renderer/hooks/useFormData'
 import React, { RefObject, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 
 function Description(): React.JSX.Element {
   const inputRef = useRef() as RefObject<HTMLInputElement>
   const note = useLoaderData() as Note
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { data, setData, handleChange } = useFormData(note)
 
@@ -20,6 +21,12 @@ function Description(): React.JSX.Element {
   const handleUpdateBtn = () => {
     dispatch(updateNote(data))
   }
+
+  const handleDeleteBtn = () => {
+    dispatch(deleteNote(data.id!))
+    navigate('/')
+  }        
+
   return (
     <>
     <div className="flex flex-col px-3 py-2 tracking-wide gap-y-4">
@@ -35,7 +42,7 @@ function Description(): React.JSX.Element {
     </div>
     <div className='absolute flex bottom-8 left-4 gap-x-4'>
       <button onClick={handleUpdateBtn} className='px-2 py-1 bg-blue-400 rounded-full outline-transparent outline outline-2 hover:bg-inherit hover:outline-blue-400'>Update</button>
-      <button className='px-2 py-1 bg-red-400 rounded-full outline-transparent outline outline-2 hover:bg-inherit hover:outline-red-400'>Delete</button>
+      <button onClick={handleDeleteBtn} className='px-2 py-1 bg-red-400 rounded-full outline-transparent outline outline-2 hover:bg-inherit hover:outline-red-400'>Delete</button>
     </div>
     </>
   )
